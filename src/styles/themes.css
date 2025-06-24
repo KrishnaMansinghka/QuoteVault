@@ -1,0 +1,11 @@
+html {
+  background-color: var(--paper);
+  color: var(--ink);
+  transition: background-color 0.3s, color 0.3s;
+  font-family: var(--font-ui);
+}
+
+html.dark {
+  background-color: #111317;
+  color: var(--ink);
+}
