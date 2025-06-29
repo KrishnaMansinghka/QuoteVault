@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Moon, Sun, Plus, Search, Sparkles, BookOpen, Quote, Edit, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -56,16 +55,18 @@ const mockQuotes = [
 ];
 
 const FloatingGlyphs = () => {
-  const glyphs = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+  const glyphs = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {[...Array(12)].map((_, i) => (
+      {/* Floating alphabets */}
+      {[...Array(20)].map((_, i) => (
         <div
-          key={i}
-          className="absolute text-muted-foreground/30 dark:text-muted-foreground/20 text-2xl font-playfair animate-float-glyph"
+          key={`glyph-${i}`}
+          className="absolute text-muted-foreground/50 dark:text-muted-foreground/40 text-3xl font-playfair animate-float-glyph"
           style={{
             left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
             animationDelay: `${Math.random() * 10}s`,
             animationDuration: `${15 + Math.random() * 10}s`
           }}
@@ -73,12 +74,27 @@ const FloatingGlyphs = () => {
           {glyphs[Math.floor(Math.random() * glyphs.length)]}
         </div>
       ))}
+      {/* Floating book icons */}
+      {[...Array(12)].map((_, i) => (
+        <div
+          key={`bookicon-${i}`}
+          className="absolute animate-float-glyph"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 8}s`,
+            animationDuration: `${18 + Math.random() * 12}s`
+          }}
+        >
+          <BookOpen className="w-8 h-8 text-[#7c6f5c] opacity-70" />
+        </div>
+      ))}
     </div>
   );
 };
 
 const Index = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [quotes, setQuotes] = useState(mockQuotes);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -91,7 +107,6 @@ const Index = () => {
     source: '',
     tags: ''
   });
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Theme toggle
   useEffect(() => {
@@ -101,16 +116,6 @@ const Index = () => {
       document.documentElement.classList.remove('dark');
     }
   }, [isDark]);
-
-  // Parallax mouse tracking
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   // Filter quotes
   const filteredQuotes = quotes.filter(quote => {
@@ -290,28 +295,6 @@ const Index = () => {
                 }}
               >
                 {['·', '—', '.', '‚', '"', '"', '…'][Math.floor(Math.random() * 7)]}
-              </div>
-            ))}
-          </div>
-          
-          {/* Enhanced floating books - reduced quantity, fully randomized positioning */}
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(15)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute animate-parallax-float"
-                style={{
-                  left: `${Math.random() * 95}%`,
-                  top: `${Math.random() * 95}%`,
-                  animationDelay: `${Math.random() * 8}s`,
-                  animationDuration: `${8 + Math.random() * 6}s`,
-                  transform: `translate(${(mousePosition.x - window.innerWidth / 2) * (0.01 + i * 0.0005)}px, ${(mousePosition.y - window.innerHeight / 2) * (0.01 + i * 0.0005)}px)`
-                }}
-              >
-                <BookOpen 
-                  className={`w-6 h-6 text-vault-primary/${25 + (i % 4) * 10} dark:text-vault-primary/${15 + (i % 3) * 8}`}
-                  style={{ transform: `rotate(${Math.random() * 360}deg)` }}
-                />
               </div>
             ))}
           </div>
