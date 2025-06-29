@@ -1,5 +1,0 @@
-html.dark {
-  background-color: var(--canvas);
-  color: var(--textDark);
-  transition: background-color 0.3s, color 0.3s;
-}

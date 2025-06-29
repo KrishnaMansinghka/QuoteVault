@@ -1,16 +1,19 @@
 {
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
-    "strict": true,
-    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "noImplicitAny": false,
+    "noUnusedParameters": false,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["vite/client"]
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts"],
-  "exclude": ["node_modules"]
+    "allowJs": true,
+    "noUnusedLocals": false,
+    "strictNullChecks": false
+  }
 }
